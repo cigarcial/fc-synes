@@ -19,8 +19,11 @@
 
 H:
 
-# Mastodon
+# FC-Synes
 
+##Synesthesia - Music Agent
+
+Felipe Villareal Daza
 Ciro Iván García López
 
 H:
@@ -38,65 +41,13 @@ H:
 
 ## Goal
 
-* Represent a Mastodon in a scene.
-* Study the motion of an animal in a scene.
+* Be friends
 
 H:
 
 ## Design
 
-* The following is the graph scene.
-<div id='graph' >
-</div>
-
-V:
-
-## Legs
-
-* Is the core of the scene, all calculations are relative to the legs.
-* Gives the motion to the scene.
-<div id='legs_id' style="width:50%; margin:0 auto;"></div>
-
-V: 
-## Leg
-
-* Each leg is represented by 3 points in the space.
-<div id='leg_id'></div>
-
-V:
-## The motion of legs
-
-* Synchronized motion, each leg per clock.
-* Using Sine function and inverse motion with trigonometry.
-<div id='motion_id' style="width:50%; margin:0 auto;"></div>
-
-V: 
-## Face and Trunk
-
-* The face is represented by an sphere at the middle point of the frontal legs.
-* The trunk is represented by an cuadratic function.
-<div id='trunk_id' style="width:50%; margin:0 auto;"></div>
-
-V: 
-## Tail
-
-* Represented by an exponential function, it begins at the middle point of the back legs.
-<div id='tail_id' style="width:40%; margin:0 auto;"></div>
-
-V:
-## Body
-
-* Represented by a sphere in the middle point of the legs.
-<div id='body_id' style="width:50%; margin:0 auto;"></div>
-
-H:
-
-## Interaction
-
-The sketch allows the interaction with the camera.
-
-1. Eye Position: `$w-a-s-d-u-i$`
-2. Center Position: `$up-down-left-right$`
+* The following is the architecture of the project.
 
 H:
 
@@ -109,25 +60,23 @@ H:
 ## Conclusions
 ### Results
 
-* A first representation of a Mastodon.
+* A first approach to the proscene architecture.
+* 
 
 V: 
 
 ## Future Work
 ### Current limitations
 
-*  The calculation of vertices are complex.
-*  The cosine and tangent inverse functions induce error on angles.
+*  The rate of notes in music is high. 
+* 
 
 V:
 
 ## Future Work
 ### Next (possible) steps
 
-* Make easier the vertices calculation.
-* Use a lightweight represantation for the shape.
-* Generalize the algorithm of motion. 
-* Add textures to the representation.
+* Make a better work.
 
 H:
 
