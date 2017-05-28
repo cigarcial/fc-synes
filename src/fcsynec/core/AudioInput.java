@@ -4,10 +4,11 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.*;
 import com.dazz.audio.*;
 
-public class AudioInput {
+public class AudioInput implements Input{
 	
 	private ConcurrentLinkedDeque<Integer> data;
 	private Thread thread;
+	private SignalInput si;
 	
 	public AudioInput() {
 		data = new ConcurrentLinkedDeque<>();
