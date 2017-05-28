@@ -2,6 +2,7 @@ import remixlab.bias.Agent;
 import remixlab.proscene.Scene;
 import processing.core.PApplet;
 import java.util.*;
+import fcsynec.core.*;
 
 public class MusicAgent extends Agent {
 
@@ -16,6 +17,7 @@ public class MusicAgent extends Agent {
 
   private Scene scene;
   private PApplet applet;
+  private Input input;
 
   public MusicAgent(Scene scn, PApplet p) {
     super(scn.inputHandler());
@@ -24,6 +26,7 @@ public class MusicAgent extends Agent {
     addGrabber(scene.eyeFrame());
     setDefaultGrabber(scene.eyeFrame());
     applet = p;
+    input = new DummyInput();
   }
 
   public void register() {
@@ -41,7 +44,7 @@ public class MusicAgent extends Agent {
   @Override
     public NoteEvent feed() {
     if ( applet.frameCount%60 == 0) {
-      int nx = 0;//input.getInput();
+      int nx = input.next();
       if ( nx == 1) {
         return new NoteEvent(NoteShortcut_DO);
       } else if ( nx == 2) {

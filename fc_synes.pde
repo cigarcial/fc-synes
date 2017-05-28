@@ -50,7 +50,10 @@ public boolean checkIfGrabsInput(InteractiveFrame frame, NoteEvent event){
   return true;
 }
 
-public void noAction(InteractiveFrame frame, NoteEvent event){}
+public void noAction(InteractiveFrame frame, NoteEvent event){
+  println("no event");
+}
+
 public void doAction(InteractiveFrame frame, NoteEvent event){}
 public void reAction(InteractiveFrame frame, NoteEvent event){}
 public void miAction(InteractiveFrame frame, NoteEvent event){}
