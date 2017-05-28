@@ -21,9 +21,10 @@ H:
 
 # FC-Synes
 
-##Synesthesia - Music Agent
+## Synesthesia - Music Agent
 
 Felipe Villareal Daza
+<p>
 Ciro Iván García López
 
 H:
