@@ -18,6 +18,17 @@ void setup(){
   frames = new LinkedList<InteractiveFrame>();
   frames.add(scene.eyeFrame());
   
+  for(int i=0;i<5;++i){
+    float x = 300*(new Random().nextFloat()-0.5);
+    float y = 300*(new Random().nextFloat()-0.5);
+    CustomFrame f = new CustomFrame(scene,i+1,x,y,0);
+    frames.add(f);
+  }
+  
+  
+  /*
+  * FRAME BINDING
+  */
   scene.eyeFrame().setBinding(new NoteShortcut(BogusEvent.NO_MODIFIER_MASK, MusicAgent.NoteShortcut_NO), "noAction");
   scene.eyeFrame().setBinding(new NoteShortcut(BogusEvent.NO_MODIFIER_MASK, MusicAgent.NoteShortcut_DO), "doAction");
   scene.eyeFrame().setBinding(new NoteShortcut(BogusEvent.NO_MODIFIER_MASK, MusicAgent.NoteShortcut_RE), "reAction");
@@ -31,13 +42,15 @@ void setup(){
 
 void draw(){
   background(255);
-  box(30);
+  box(20);
   pushMatrix();
   //frames.get(1).draw();
-  scene.drawAxes(20);
+  scene.drawAxes(10);
+  for(int i=1;i<frames.size();++i){
+    frames.get(i).draw();
+  }
   popMatrix();
 }
-
 
 /**
 *
@@ -50,33 +63,42 @@ public boolean checkIfGrabsInput(InteractiveFrame frame, NoteEvent event){
   return true;
 }
 
-public void noAction(InteractiveFrame frame, NoteEvent event){
-  //println("no event");
-}
-
 public void doAction(InteractiveFrame frame, NoteEvent event){
-  println("do event");
+  //println("do event");
+  frames.get(idx).rotate(new Quat(0,0,1,10));
 }
 
 public void reAction(InteractiveFrame frame, NoteEvent event){
-  println("re event");
+  //println("re event");
+  frames.get(idx).rotate(new Quat(0,0,-1,10));
 }
 
 public void miAction(InteractiveFrame frame, NoteEvent event){
-  println("mi event");
+  //println("mi event");
+  frames.get(idx).translate(10,0);
 }
 
 public void faAction(InteractiveFrame frame, NoteEvent event){
-  println("fa event");
+  //println("fa event");
+  frames.get(idx).translate(-10,0);
 }
 
 public void slAction(InteractiveFrame frame, NoteEvent event){
   println("sol event");
+  frames.get(idx).scale(0.5);
 }
 
 public void laAction(InteractiveFrame frame, NoteEvent event){
-  println("la event");
+  //println("la event");
+  idx = (idx+1)%frames.size();
 }
 public void siAction(InteractiveFrame frame, NoteEvent event){
-  println("si event");
+  //println("si event");
+  idx--;
+  if( idx < 0){
+    idx = frames.size()-1;
+  }
 }
+
+//ONLY FOR CONTROL
+public void noAction(InteractiveFrame frame, NoteEvent event){}

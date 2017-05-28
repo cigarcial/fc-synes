@@ -7,14 +7,16 @@ import remixlab.dandelion.core.*;
 public class CustomFrame extends InteractiveFrame{
   
   private int id;
-  public CustomFrame(Scene scn,int id,int x,int y){
+  private int type;
+  
+  public CustomFrame(Scene scn,int id,float x,float y,int t){
     super(scn);
     this.id = id; 
     setPickingPrecision(InteractiveFrame.PickingPrecision.ADAPTIVE);
     setGrabsInputThreshold(scn.radius() / 4);
     translate(x,y);
+    type = t;
   }
-  
   
   @Override
   public boolean equals(Object o){
@@ -23,10 +25,9 @@ public class CustomFrame extends InteractiveFrame{
   }
   
   void draw(){
-    //println("OK");
     pushMatrix();
     applyTransformation();
-    box(50);
+    box(20);
     popMatrix();
   }
 }
