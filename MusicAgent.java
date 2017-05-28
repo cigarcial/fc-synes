@@ -45,6 +45,7 @@ public class MusicAgent extends Agent {
     public NoteEvent feed() {
     if ( applet.frameCount%60 == 0) {
       int nx = input.next();
+      //System.out.println(nx);
       if ( nx == 1) {
         return new NoteEvent(NoteShortcut_DO);
       } else if ( nx == 2) {

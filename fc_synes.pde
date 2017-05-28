@@ -51,13 +51,32 @@ public boolean checkIfGrabsInput(InteractiveFrame frame, NoteEvent event){
 }
 
 public void noAction(InteractiveFrame frame, NoteEvent event){
-  println("no event");
+  //println("no event");
 }
 
-public void doAction(InteractiveFrame frame, NoteEvent event){}
-public void reAction(InteractiveFrame frame, NoteEvent event){}
-public void miAction(InteractiveFrame frame, NoteEvent event){}
-public void faAction(InteractiveFrame frame, NoteEvent event){}
-public void slAction(InteractiveFrame frame, NoteEvent event){}
-public void laAction(InteractiveFrame frame, NoteEvent event){}
-public void siAction(InteractiveFrame frame, NoteEvent event){}
+public void doAction(InteractiveFrame frame, NoteEvent event){
+  println("do event");
+}
+
+public void reAction(InteractiveFrame frame, NoteEvent event){
+  println("re event");
+}
+
+public void miAction(InteractiveFrame frame, NoteEvent event){
+  println("mi event");
+}
+
+public void faAction(InteractiveFrame frame, NoteEvent event){
+  println("fa event");
+}
+
+public void slAction(InteractiveFrame frame, NoteEvent event){
+  println("sol event");
+}
+
+public void laAction(InteractiveFrame frame, NoteEvent event){
+  println("la event");
+}
+public void siAction(InteractiveFrame frame, NoteEvent event){
+  println("si event");
+}
