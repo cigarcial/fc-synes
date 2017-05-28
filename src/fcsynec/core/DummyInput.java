@@ -13,8 +13,6 @@ public class DummyInput implements Input{
 	
 	public DummyInput() {
 		data = new ConcurrentLinkedDeque<>();
-		si = new SignalInput();
-		si.initInput();
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -27,10 +25,7 @@ public class DummyInput implements Input{
 	@Override
 	public void run() {
 		while(true){
-			int tmp = si.getEvent();
-			if (tmp != -1)
-				data.offer(tmp);
-			//data.offer(new Random().nextInt(7)+1);
+			data.offer(new Random().nextInt(7)+1);
 			try{
 				Thread.sleep(200);
 			}catch(Exception ex){}

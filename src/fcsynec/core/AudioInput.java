@@ -7,15 +7,18 @@ import com.dazz.audio.*;
 public class AudioInput implements Input{
 	
 	private ConcurrentLinkedDeque<Integer> data;
-	private Thread thread;
+	private Thread thread,thread2;
 	private SignalInput si;
 	
 	public AudioInput() {
 		data = new ConcurrentLinkedDeque<>();
 		si = new SignalInput();
 		si.initInput();
+		thread2 = new Thread(new StartRec());
+		thread2.start();
 		thread = new Thread(this);
 		thread.start();
+		
 	}
 
 	@Override
@@ -33,5 +36,13 @@ public class AudioInput implements Input{
 				Thread.sleep(200);
 			}catch(Exception ex){}
 		}
+	}
+	
+	private class StartRec implements Runnable{
+		@Override
+		public void run() {
+			si.startRecording();
+		}
+		
 	}
 }
