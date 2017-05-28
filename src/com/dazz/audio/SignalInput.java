@@ -152,7 +152,6 @@ public class SignalInput {
 	
 	//Query for notes processed in queue
 	public int getEvent(){
-		System.out.println("El event a quitar es: " + eventQueue.get(0));
 		return eventQueue.size() == 0 ? -1 : eventQueue.remove(0);
 	}
 	
