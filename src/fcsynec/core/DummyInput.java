@@ -6,9 +6,12 @@ public class DummyInput implements Input{
 
 	
 	private ConcurrentLinkedDeque<Integer> data;
+	private Thread thread;
 	
 	public DummyInput() {
 		data = new ConcurrentLinkedDeque<>();
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	@Override
