@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -23,10 +23,10 @@ public class SignalInput {
 	private float sampleFrequency = 8000.0f;
 	private byte[] sound;
 	private boolean recordFlag = false;
-	private double[] freqs = new double[25];
+	private double[] freqs = new double[6];
 	private double uFreq;
 	private double[] noteFreqs = {125,140.625,171.875,203.125,218.75,250.0};
-	private ArrayList<Integer> eventQueue = new ArrayList<>();
+	private ConcurrentLinkedDeque<Integer> eventQueue = new ConcurrentLinkedDeque<>();
 	
 	public SignalInput(){
 		//Define sample frequency, bits/sample, channels.
@@ -124,47 +124,48 @@ public class SignalInput {
 				}
 			}
 			
-			if(secCounter < 25){
+			
+			if(secCounter < 6){
 				freqs[secCounter++] = max_index * sampleFrequency / result.length;	//Get frequency of the index of greater magnitude.
 			}
 			else{
-				//Get the mode of the 25 samples with the most magnitude each 25*512 Bytes of audio.
+				//Get the mode of the 6 samples with the most magnitude each 6*512 Bytes of audio. (200ms)
 				uFreq = mode(freqs);
 				//Depending on frequency, send integer as event.
-				eventQueue.add(new Random().nextInt(7)+1);
-				/*
+				//eventQueue.offer(new Random().nextInt(7)+1);
+				
 				if (uFreq == noteFreqs[0]){
-					eventQueue.add(1);
+					eventQueue.offer(1);
 					System.out.println("Note: C");
 				}
 				else if (uFreq == noteFreqs[1]){
-					eventQueue.add(2);
+					eventQueue.offer(2);
 					System.out.println("Note: D");
 				}
 				else if (uFreq == noteFreqs[2]){
-					eventQueue.add(3);
+					eventQueue.offer(3);
 					System.out.println("Note: E");
 				}
 				else if (uFreq == noteFreqs[3]){
-					eventQueue.add(4);
+					eventQueue.offer(4);
 					System.out.println("Note: F");
 				}
 				else if (uFreq == noteFreqs[4]){
-					eventQueue.add(5);
+					eventQueue.offer(5);
 					System.out.println("Note: G");
 				}
 				else if (uFreq == noteFreqs[5]){
-					eventQueue.add(6);
+					eventQueue.offer(6);
 					System.out.println("Note: A");
 				}
 				else if (uFreq == noteFreqs[5]){
-					eventQueue.add(6);
+					eventQueue.offer(6);
 					System.out.println("Note: S");
 				}
-				*/
+				
 
 				secCounter = 0;
-				freqs = new double[25];
+				freqs = new double[6];
 				freqs[secCounter++] = max_index * sampleFrequency / result.length;
 			}
 		}
@@ -172,7 +173,7 @@ public class SignalInput {
 	
 	//Query for notes processed in queue
 	public int getEvent(){
-		return eventQueue.size() == 0 ? -1 : eventQueue.remove(0);
+		return eventQueue.size() == 0 ? -1 : eventQueue.poll();
 	}
 	
 	//Get the Mode of an array in O(n) time.
