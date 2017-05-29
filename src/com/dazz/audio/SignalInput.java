@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.*;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -130,6 +131,8 @@ public class SignalInput {
 				//Get the mode of the 25 samples with the most magnitude each 25*512 Bytes of audio.
 				uFreq = mode(freqs);
 				//Depending on frequency, send integer as event.
+				eventQueue.add(new Random().nextInt(7)+1);
+				/*
 				if (uFreq == noteFreqs[0]){
 					eventQueue.add(1);
 					System.out.println("Note: C");
@@ -158,6 +161,7 @@ public class SignalInput {
 					eventQueue.add(6);
 					System.out.println("Note: S");
 				}
+				*/
 
 				secCounter = 0;
 				freqs = new double[25];

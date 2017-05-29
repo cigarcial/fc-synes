@@ -19,19 +19,36 @@ public class AudioInput implements Input{
 		thread = new Thread(this);
 		thread.start();
 	}
+	
+	
+	public void stopRecording(){
+		si.stopRecording();
+	}
 
 	@Override
 	public int next() {
+		/*
+		int tmp = si.getEvent();
+		if (tmp != -1){
+			System.out.println("Get from EventQueue to Agent event #: " + tmp);
+			//data.offer(tmp);
+			return tmp;
+		}
+		return 0;*/
+		
 		if (data.peek() != null){
 			int tmp = data.poll();
 			System.out.println("Get from concurrent Queue to agent event #: " + tmp);
 			return tmp;
 		}
-		return -1;
+		return 0;
+		
 	}
 	
 	@Override
 	public void run() {
+		//si.startRecording();
+		
 		while(true){
 			int tmp = si.getEvent();
 			if (tmp != -1){
@@ -42,7 +59,9 @@ public class AudioInput implements Input{
 				Thread.sleep(200);
 			}catch(Exception ex){}
 		}
+		
 	}
+	
 	
 	private class StartRec implements Runnable{
 		@Override
@@ -52,7 +71,6 @@ public class AudioInput implements Input{
 		
 	}
 	
-	public void stopRec(){
-		si.stopRecording();
-	}
+	
+	
 }
