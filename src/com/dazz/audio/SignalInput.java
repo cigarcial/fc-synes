@@ -1,5 +1,7 @@
 package com.dazz.audio;
 
+//Felipe Villarreal Daza: Universidad Nacional de Colombia - 2017
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -69,6 +71,7 @@ public class SignalInput {
 	public void stopRecording(){
 		recordFlag = false;
 		audioInput.stop();
+		audioInput.drain();
 		audioInput.close();
 	}
 	
@@ -77,8 +80,10 @@ public class SignalInput {
 		int secCounter = 0;
 		if (recordFlag) audioInput.start();
 		while (recordFlag){
+			//Read data from audioInput buffer to Byte array
 			audioInput.read(sound, 0, sound.length);
 			
+			//Get bits/sample in AudioFormat.
 			int bits = audioFormat.getSampleSizeInBits();
 			double max = Math.pow(2, bits - 1);
 			//create double array with power of 2 length for fft
@@ -88,12 +93,10 @@ public class SignalInput {
 			ByteBuffer bb = ByteBuffer.wrap(sound);
 			bb.order(audioFormat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
    
-			//El buffer tiene menos datos que la longitud del array entonces
-			//solo traemos del buffer los datos del sonido a los samples.
+			//Buffer has less samples than samples.length (Power of 2).
+			//We only take the # of Bytes in the buffer and place them in samples array to void BufferUnderFlow
 			for(int j = 0; j < sound.length * 8 / bits ; j++) {
-				//System.out.println(j);
 				samples[j] = ( bb.getShort()  / max  );
-				//System.out.println(samples[j]);
 			}
 
 			//fft over the samples with the sound
@@ -104,12 +107,12 @@ public class SignalInput {
 			for( int j = 0 ; j < result.length / 2 - 1 ; j++){
 				double re = result[2*j];
 				double im = result[2*j+1];
-				magnitude[j] = Math.sqrt(re*re+im*im);
+				magnitude[j] = Math.sqrt(re*re+im*im);	//Calculate index magnitude
 				//Apply magniute threshold
 				if (magnitude[j] < 0.1)
 					magnitude[j] = 0;
 				//Apply band-pass filter to magnitude array
-				if (j * 8000 / result.length < lowCutOff || j * sampleFrequency / result.length > highCutOff){
+				if (j * sampleFrequency / result.length < lowCutOff || j * sampleFrequency / result.length > highCutOff){
 					magnitude[j] /= filterWeight;
 				}
 				for (int k = 0; k < result.length / 2 - 1 ; k++){
@@ -118,43 +121,44 @@ public class SignalInput {
 						max_index = k;
 					}
 				}
-				//System.out.println("Max mag: " + max_magnitude);
 			}
 			
 			if(secCounter < 25){
-				freqs[secCounter++] = max_index * sampleFrequency / result.length;	
+				freqs[secCounter++] = max_index * sampleFrequency / result.length;	//Get frequency of the index of greater magnitude.
 			}
 			else{
+				//Get the mode of the 25 samples with the most magnitude each 25*512 Bytes of audio.
 				uFreq = mode(freqs);
-				//System.out.println(uFreq);
 				//Depending on frequency, send integer as event.
 				if (uFreq == noteFreqs[0]){
-					eventQueue.add(0);
-					System.out.println("Añadí Evento 0!");
+					eventQueue.add(1);
+					System.out.println("Note: C");
 				}
 				else if (uFreq == noteFreqs[1]){
-					eventQueue.add(1);
-					System.out.println("Añadí Evento 1!");
+					eventQueue.add(2);
+					System.out.println("Note: D");
 				}
 				else if (uFreq == noteFreqs[2]){
-					eventQueue.add(2);
-					System.out.println("Añadí Evento 2!");
+					eventQueue.add(3);
+					System.out.println("Note: E");
 				}
 				else if (uFreq == noteFreqs[3]){
-					eventQueue.add(3);
-					System.out.println("Añadí Evento 3!");
+					eventQueue.add(4);
+					System.out.println("Note: F");
 				}
 				else if (uFreq == noteFreqs[4]){
-					eventQueue.add(4);
-					System.out.println("Añadí Evento 4!");
+					eventQueue.add(5);
+					System.out.println("Note: G");
 				}
 				else if (uFreq == noteFreqs[5]){
-					eventQueue.add(5);
-					System.out.println("Añadí Evento 5!");
+					eventQueue.add(6);
+					System.out.println("Note: A");
 				}
-				
-				//System.out.println(eventQueue);
-				
+				else if (uFreq == noteFreqs[5]){
+					eventQueue.add(6);
+					System.out.println("Note: S");
+				}
+
 				secCounter = 0;
 				freqs = new double[25];
 				freqs[secCounter++] = max_index * sampleFrequency / result.length;
@@ -167,6 +171,7 @@ public class SignalInput {
 		return eventQueue.size() == 0 ? -1 : eventQueue.remove(0);
 	}
 	
+	//Get the Mode of an array in O(n) time.
 	public static double mode(double []array){
 		HashMap<Double,Integer> hm=new HashMap<Double,Integer>();
 		int max=1;

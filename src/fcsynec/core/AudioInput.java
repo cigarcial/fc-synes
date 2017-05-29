@@ -18,18 +18,16 @@ public class AudioInput implements Input{
 		thread2.start();
 		thread = new Thread(this);
 		thread.start();
-		
 	}
 
 	@Override
 	public int next() {
 		if (data.peek() != null){
 			int tmp = data.poll();
-			System.out.println("Saco de la concurrente hacia el agente el item" + tmp);
+			System.out.println("Get from concurrent Queue to agent event #: " + tmp);
 			return tmp;
 		}
 		return -1;
-		//return (data.peek() == null)? -1 : data.poll();
 	}
 	
 	@Override
@@ -37,7 +35,7 @@ public class AudioInput implements Input{
 		while(true){
 			int tmp = si.getEvent();
 			if (tmp != -1){
-				System.out.println("Paso de la cola de la libreria a la cola concurrente el item: " + tmp);
+				System.out.println("Get from EventQueue to ConcurrentQueue event #: " + tmp);
 				data.offer(tmp);
 			}
 			try{
@@ -52,5 +50,9 @@ public class AudioInput implements Input{
 			si.startRecording();
 		}
 		
+	}
+	
+	public void stopRec(){
+		si.stopRecording();
 	}
 }
