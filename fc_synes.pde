@@ -64,22 +64,22 @@ public boolean checkIfGrabsInput(InteractiveFrame frame, NoteEvent event){
 }
 
 public void doAction(InteractiveFrame frame, NoteEvent event){
-  //println("do event");
+  println("do event");
   frames.get(idx).rotate(new Quat(0,0,1,10));
 }
 
 public void reAction(InteractiveFrame frame, NoteEvent event){
-  //println("re event");
+  println("re event");
   frames.get(idx).rotate(new Quat(0,0,-1,10));
 }
 
 public void miAction(InteractiveFrame frame, NoteEvent event){
-  //println("mi event");
+  println("mi event");
   frames.get(idx).translate(10,0);
 }
 
 public void faAction(InteractiveFrame frame, NoteEvent event){
-  //println("fa event");
+  println("fa event");
   frames.get(idx).translate(-10,0);
 }
 
@@ -89,11 +89,11 @@ public void slAction(InteractiveFrame frame, NoteEvent event){
 }
 
 public void laAction(InteractiveFrame frame, NoteEvent event){
-  //println("la event");
+  println("la event");
   idx = (idx+1)%frames.size();
 }
 public void siAction(InteractiveFrame frame, NoteEvent event){
-  //println("si event");
+  println("si event");
   idx--;
   if( idx < 0){
     idx = frames.size()-1;

@@ -28,6 +28,10 @@ public class MusicAgent extends Agent {
     applet = p;
     input = new AudioInput();
   }
+  
+  public void stopRecording(){
+    //input.stopRecording();
+  }
 
   public void register() {
     scene.inputHandler().registerAgent(this);
@@ -46,7 +50,7 @@ public class MusicAgent extends Agent {
     if ( applet.frameCount % 60 == 0) {
       int nx = input.next();
       if (nx != 0)
-        System.out.println("Event gathered by MusicAgent is: " + nx);
+        //System.out.println("Event gathered by MusicAgent is: " + nx);
       if ( nx == 1) {
         return new NoteEvent(NoteShortcut_DO);
       } else if ( nx == 2) {
@@ -65,9 +69,5 @@ public class MusicAgent extends Agent {
       return new NoteEvent(NoteShortcut_NO);
     }
     return new NoteEvent(NoteShortcut_NO);
-  }
-  
-  public void stopRecording(){
-    //input.stopRec();
   }
 }
