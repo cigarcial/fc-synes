@@ -43,23 +43,31 @@ public class MusicAgent extends Agent {
   //reflexion para check...
   @Override
     public NoteEvent feed() {
-    //if ( applet.frameCount%60 == 0) {
+    if ( applet.frameCount % 60 == 0) {
       int nx = input.next();
-      if (nx != -1)
-        System.out.println("El numero que obtiene el agente es: " + nx);
-      if ( nx == 0) {
+      if (nx != 0)
+        System.out.println("Event gathered by MusicAgent is: " + nx);
+      if ( nx == 1) {
         return new NoteEvent(NoteShortcut_DO);
-      } else if ( nx == 1) {
-        return new NoteEvent(NoteShortcut_RE);
       } else if ( nx == 2) {
-        return new NoteEvent(NoteShortcut_MI);
+        return new NoteEvent(NoteShortcut_RE);
       } else if ( nx == 3) {
-        return new NoteEvent(NoteShortcut_FA);
+        return new NoteEvent(NoteShortcut_MI);
       } else if ( nx == 4) {
+        return new NoteEvent(NoteShortcut_FA);
+      } else if ( nx == 5) {
         return new NoteEvent(NoteShortcut_SL);
+      } else if ( nx == 6) {
+        return new NoteEvent(NoteShortcut_LA);
+      } else if ( nx == 7) {
+        return new NoteEvent(NoteShortcut_SI);
       }
       return new NoteEvent(NoteShortcut_NO);
-    //}
-    //return new NoteEvent(NoteShortcut_NO);
+    }
+    return new NoteEvent(NoteShortcut_NO);
+  }
+  
+  public void stopRecording(){
+    //input.stopRec();
   }
 }

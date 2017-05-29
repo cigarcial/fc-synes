@@ -102,3 +102,10 @@ public void siAction(InteractiveFrame frame, NoteEvent event){
 
 //ONLY FOR CONTROL
 public void noAction(InteractiveFrame frame, NoteEvent event){}
+
+//Handle close event
+void exit(){
+  MusicAgent.stopRecording();
+  println("Ok");
+  super.exit();
+}
