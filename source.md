@@ -40,16 +40,25 @@ H:
 
 H:
 
+<figure>
+    <img height='700' src='fig/img1.jpg' />
+</figure>
+
+H:
+
 ## Goal
 
-* Be friends
+* Build an agent that manipulates the scene by music.
+* Music visualization
 
 H:
 
 ## Design
 
 * The following is the architecture of the project.
-
+<figure>
+    <img height='600' src='fig/img2.png' />
+</figure>
 H:
 
 ## Demo
@@ -62,22 +71,25 @@ H:
 ### Results
 
 * A first approach to the proscene architecture.
-* 
+* A custom agent that manage the events.
+* An external library for the signal processing.
 
 V: 
 
 ## Future Work
 ### Current limitations
 
-*  The rate of notes in music is high. 
-* 
+* The number of events.
+* The rate of notes in music is high. 
 
 V:
 
 ## Future Work
 ### Next (possible) steps
 
-* Make a better work.
+* Extend the library to another type of inputs.
+* Extend the events to sharp notes.
+* Extract more information of the signal. 
 
 H:
 
@@ -88,4 +100,4 @@ H:
 ## References
 
 * [Math primer for graphics and game development](https://tfetimes.com/wp-content/uploads/2015/04/F.Dunn-I.Parberry-3D-Math-Primer-for-Graphics-and-Game-Development.pdf)
-* [Fabrik Paper](http://www.andreasaristidou.com/publications/CUEDF-INFENG,%20TR-632.pdf)
+* [Imagenes taken from wikicommons](https://commons.wikimedia.org/wiki/Main_Page)
