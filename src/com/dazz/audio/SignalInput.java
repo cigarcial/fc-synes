@@ -128,20 +128,32 @@ public class SignalInput {
 				uFreq = mode(freqs);
 				//System.out.println(uFreq);
 				//Depending on frequency, send integer as event.
-				if (uFreq == noteFreqs[0])
+				if (uFreq == noteFreqs[0]){
 					eventQueue.add(0);
-				else if (uFreq == noteFreqs[1])
+					System.out.println("Añadí Evento 0!");
+				}
+				else if (uFreq == noteFreqs[1]){
 					eventQueue.add(1);
-				else if (uFreq == noteFreqs[2])
+					System.out.println("Añadí Evento 1!");
+				}
+				else if (uFreq == noteFreqs[2]){
 					eventQueue.add(2);
-				else if (uFreq == noteFreqs[3])
+					System.out.println("Añadí Evento 2!");
+				}
+				else if (uFreq == noteFreqs[3]){
 					eventQueue.add(3);
-				else if (uFreq == noteFreqs[4])
+					System.out.println("Añadí Evento 3!");
+				}
+				else if (uFreq == noteFreqs[4]){
 					eventQueue.add(4);
-				else if (uFreq == noteFreqs[5])
+					System.out.println("Añadí Evento 4!");
+				}
+				else if (uFreq == noteFreqs[5]){
 					eventQueue.add(5);
+					System.out.println("Añadí Evento 5!");
+				}
 				
-				System.out.println(eventQueue);
+				//System.out.println(eventQueue);
 				
 				secCounter = 0;
 				freqs = new double[25];

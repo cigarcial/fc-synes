@@ -23,15 +23,23 @@ public class AudioInput implements Input{
 
 	@Override
 	public int next() {
-		return (data.peek() == null)? 0 : data.poll();
+		if (data.peek() != null){
+			int tmp = data.poll();
+			System.out.println("Saco de la concurrente hacia el agente el item" + tmp);
+			return tmp;
+		}
+		return -1;
+		//return (data.peek() == null)? -1 : data.poll();
 	}
 	
 	@Override
 	public void run() {
 		while(true){
 			int tmp = si.getEvent();
-			if (tmp != -1)
+			if (tmp != -1){
+				System.out.println("Paso de la cola de la libreria a la cola concurrente el item: " + tmp);
 				data.offer(tmp);
+			}
 			try{
 				Thread.sleep(200);
 			}catch(Exception ex){}
