@@ -26,7 +26,7 @@ public class MusicAgent extends Agent {
     addGrabber(scene.eyeFrame());
     setDefaultGrabber(scene.eyeFrame());
     applet = p;
-    input = new DummyInput();
+    input = new AudioInput();
   }
 
   public void register() {
@@ -43,22 +43,23 @@ public class MusicAgent extends Agent {
   //reflexion para check...
   @Override
     public NoteEvent feed() {
-    if ( applet.frameCount%60 == 0) {
+    //if ( applet.frameCount%60 == 0) {
       int nx = input.next();
-      //System.out.println(nx);
-      if ( nx == 1) {
+      if (nx != -1)
+        System.out.println("El numero que obtiene el agente es: " + nx);
+      if ( nx == 0) {
         return new NoteEvent(NoteShortcut_DO);
-      } else if ( nx == 2) {
+      } else if ( nx == 1) {
         return new NoteEvent(NoteShortcut_RE);
-      } else if ( nx == 3) {
+      } else if ( nx == 2) {
         return new NoteEvent(NoteShortcut_MI);
-      } else if ( nx == 4) {
+      } else if ( nx == 3) {
         return new NoteEvent(NoteShortcut_FA);
-      } else if ( nx == 5) {
+      } else if ( nx == 4) {
         return new NoteEvent(NoteShortcut_SL);
       }
       return new NoteEvent(NoteShortcut_NO);
-    }
-    return new NoteEvent(NoteShortcut_NO);
+    //}
+    //return new NoteEvent(NoteShortcut_NO);
   }
 }
